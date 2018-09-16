@@ -14,7 +14,7 @@ def main():
     trainingDocs = trainingDocsFile.readlines()
     for line in trainingDocs:
         docNum += 1
-    print(docNum)
+    #print(docNum)
 
 
 
