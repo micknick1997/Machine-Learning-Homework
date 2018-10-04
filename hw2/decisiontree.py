@@ -5,7 +5,6 @@ import os
 import sys
 import numpy as np
 from sklearn import tree
-#from sklearn.cross_validation import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix
 import graphviz
@@ -35,15 +34,22 @@ testingLabels = np.loadtxt(os.path.expanduser(root) + "data/testinglabels.txt")
 
 # Train a decision tree via information gain on the training data
 
-# entropyOfData = sp.stats.entropy(trainingData, base=2)
 decisionTree = DecisionTreeClassifier(criterion="entropy")
 decisionTree.fit(trainingData, trainingLables)
 
-
 # Test the decision tree
-decisionTree.predict(testingData)
+
+dTTest = decisionTree.predict(testingData)
+
 
 # Compute the confusion matrix on test data
-print(confusion_matrix(trainingLables, testingLabels))
+
+# print(dTTest)
+# print(testingLabels)
+print(confusion_matrix(dTTest, testingLabels))
 
 # Visualize the tree using graphviz
+trainingTree = decisionTree.fit(trainingData, trainingLables)
+tree.export_graphviz(trainingTree, out_file="trainingTree.dot")
+testingTree = decisionTree.fit(testingData, testingLabels)
+tree.export_graphviz(testingTree, out_file="testingTree.dot")
