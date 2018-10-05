@@ -1,12 +1,13 @@
 digraph Tree {
-node [shape=box] ;
-0 [label="X[2] <= 87.368\nentropy = 1.0\nsamples = 10\nvalue = [5, 5]"] ;
-1 [label="entropy = 0.0\nsamples = 3\nvalue = [0, 3]"] ;
+node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
+edge [fontname=helvetica] ;
+0 [label="MDVP:Flo(Hz) <= 87.368\nentropy = 1.0\nsamples = 10\nvalue = [5, 5]\nclass = Has PD", fillcolor="#e5813900"] ;
+1 [label="entropy = 0.0\nsamples = 3\nvalue = [0, 3]\nclass = Doesn't have PD", fillcolor="#399de5ff"] ;
 0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
-2 [label="X[13] <= 0.025\nentropy = 0.863\nsamples = 7\nvalue = [5, 2]"] ;
+2 [label="Shimmer:DDA <= 0.025\nentropy = 0.863\nsamples = 7\nvalue = [5, 2]\nclass = Has PD", fillcolor="#e5813999"] ;
 0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
-3 [label="entropy = 0.0\nsamples = 2\nvalue = [0, 2]"] ;
+3 [label="entropy = 0.0\nsamples = 2\nvalue = [0, 2]\nclass = Doesn't have PD", fillcolor="#399de5ff"] ;
 2 -> 3 ;
-4 [label="entropy = 0.0\nsamples = 5\nvalue = [5, 0]"] ;
+4 [label="entropy = 0.0\nsamples = 5\nvalue = [5, 0]\nclass = Has PD", fillcolor="#e58139ff"] ;
 2 -> 4 ;
 }

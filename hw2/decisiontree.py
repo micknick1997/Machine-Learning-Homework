@@ -8,7 +8,6 @@ from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix
 import graphviz
-import scipy as sp
 
 # Relevant directories and filenames
 root = '~/Documents/Machine Learning Homework/hw2/'  # edit as needed
@@ -40,6 +39,7 @@ decisionTree.fit(trainingData, trainingLables)
 # Test the decision tree
 
 dTTest = decisionTree.predict(testingData)
+# dTTraining = decisionTree.predict(trainingData)
 
 
 # Compute the confusion matrix on test data
@@ -47,9 +47,10 @@ dTTest = decisionTree.predict(testingData)
 # print(dTTest)
 # print(testingLabels)
 print(confusion_matrix(dTTest, testingLabels))
+#print(confusion_matrix(dTTraining, trainingLables))
 
 # Visualize the tree using graphviz
 trainingTree = decisionTree.fit(trainingData, trainingLables)
-tree.export_graphviz(trainingTree, out_file="trainingTree.dot")
+tree.export_graphviz(trainingTree, out_file="trainingTree.dot",feature_names=attributes, class_names=["Has PD", "Doesn't have PD"], filled=True, rounded=True)
 testingTree = decisionTree.fit(testingData, testingLabels)
-tree.export_graphviz(testingTree, out_file="testingTree.dot")
+tree.export_graphviz(testingTree, out_file="testingTree.dot", feature_names=attributes, class_names=["Has PD", "Doesn't have PD"], filled=True, rounded=True)
