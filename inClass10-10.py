@@ -19,7 +19,7 @@ def sigmoidPrime(s):
 
 
 def linear(x):
-    return x
+    return x 
 
 # Define training function(s)
 
