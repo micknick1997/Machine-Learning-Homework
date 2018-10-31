@@ -11,7 +11,7 @@ from skimage.util import montage
 
 def load_images(filename):
     with open(filename, 'rb') as fid:
-        # Read magic number
+        # Read magic number 
         magic = np.fromfile(fid, '>i4', 1)
         assert magic[0] == 2051, "Bad magic number in {} (expected 2051, but got {})".format(filename, magic[0])
 
