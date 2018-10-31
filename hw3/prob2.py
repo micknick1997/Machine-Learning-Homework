@@ -1,3 +1,4 @@
+# Import libraries
 import mnist
 import numpy as np
 import pandas as pd
@@ -7,3 +8,8 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense
 
+# Activation function
+def activationFunction(x):
+    alpha = 1.716
+    beta = float((2/3))
+    return alpha * np.tanh(beta * x)
