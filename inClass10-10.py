@@ -66,14 +66,15 @@ def backPropogate(X, weight1, weight2, target, index, eta):
 
 x1Data = [0, 1, -1, -2, 3, 1, -2, -3]
 x2Data = [0, 2, 2, -2, 0, -3, 3, -3]
-X = np.array([[0, 0],
-              [1, 2],
-              [-1, 2],
-              [-2, -2],
-              [3, 0],
-              [1, -3],
-              [-2, 3],
-              [-3, -3]])
+# X = np.array([[0, 0],
+#               [1, 2],
+#               [-1, 2],
+#               [-2, -2],
+#               [3, 0],
+#               [1, -3],
+#               [-2, 3],
+#               [-3, -3]])
+X = np.array([[]])
 targetData = np.array([-1, -1, -1, -1, 1, 1, 1, 1])
 # -1 specifies unknown dimension. Python does the rest
 targetData.shape = (-1, 1)

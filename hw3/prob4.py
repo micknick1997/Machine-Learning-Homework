@@ -7,9 +7,11 @@ from sklearn.preprocessing import LabelBinarizer
 from sklearn.metrics import confusion_matrix
 import keras
 from keras.models import Sequential
-from keras.layers import Dense
+from keras.layers import Dense, Flatten
 import matplotlib.pyplot as plt
 from skimage.util import montage
+
+np.random.seed(3520)
 
 # Variables/functions
 def sigmoid(x):
@@ -64,7 +66,6 @@ def show_images(images, N=1, shape=None):
 
 learningRate = 0.001
 epochs = 500
-np.random.seed(3520)
 
 # mnist = input('mnist.py')
 # importlib.import_module(mnist)
@@ -76,25 +77,48 @@ trainingLabels = load_labels("problem4Dataset/train-labels-idx1-ubyte")
 testingLabels = load_labels("problem4Dataset/t10k-labels-idx1-ubyte")
 
 # Reshape and normalize data
-trainingImages = trainingImages.reshape(60000, 784)
-testingImages = testingImages.reshape(10000, 784)
+# print(trainingImages.shape)
+# print(len(trainingLabels))
+trainingImages = trainingImages.reshape(60000, 28, 28)
+testingImages = testingImages.reshape(10000, 28, 28)
 trainingImages = trainingImages.astype('float32')
 testingImages = testingImages.astype('float32')
-trainingImages /= 255
-testingImages /= 255
+trainingImages /= 255.0
+testingImages /= 255.0
+# trainingLabels = trainingLabels.reshape(-1, 10)
+
+print(trainingLabels.shape)
 
 # Create neural network
 model = Sequential()
-model.add(Dense(units=784, init='normal', activation='sigmoid', input_dim=784))
-model.add(Dense(units=300, init='normal', activation='sigmoid'))
-model.add(Dense(units=10, init='normal', activation='sigmoid'))
+model.add(Flatten(input_shape=(28, 28)))
+model.add(Dense(units=784, activation='sigmoid'))
+model.add(Dense(units=300, activation='sigmoid'))
+model.add(Dense(units=10, activation='sigmoid'))
 model.summary()
 
-model.compile(loss='mean_squared_error', optimizer=keras.optimizers.Adam(lr=learningRate))
+model.compile(loss='mean_squared_error', metrics=['accuracy'], optimizer=keras.optimizers.Adam(lr=learningRate))
 
 # Train neural network
-training = model.fit(trainingImages, trainingLabels, batch_size=128, epochs=epochs, verbose=2, validation_data=(testingImages, testingLabels))
+training = model.fit(trainingImages, trainingLabels, epochs=epochs, verbose=2)
 
 # Test neural network
+score = model.evaluate(testingImages, testingLabels, verbose=0)
+print("Test loss:", score[0])
+print("Test accuracy:", score[1])
+
+prediction = model.predict(testingImages)
+prediction = np.argmax(prediction, axis=1)
+testingLabels, names = pd.factorize(testingLabels)
+c = confusion_matrix(testingLabels, prediction)
+print("Confusion matrix")
+print(c)
 
 # Make plot
+plt.plot(score[1], '-')
+plt.plot(testingImages, prediction, '-', color=[0,1,0])
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show(block=True)
+plt.pause(5)
+plt.close()
