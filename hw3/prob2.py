@@ -17,4 +17,7 @@ def activationFunction(x):
 x = np.arange(-5, 5.2, 0.2)
 xy = np.meshgrid(x, x)
 
-print(xy)
+# Feed forward
+
+# I struggled with this part of the assignemnt. 
+# Can I come in and work through it with you?

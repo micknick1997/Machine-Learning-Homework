@@ -85,7 +85,8 @@ trainingImages = trainingImages.astype('float32')
 testingImages = testingImages.astype('float32')
 trainingImages /= 255.0
 testingImages /= 255.0
-# trainingLabels = trainingLabels.reshape(-1, 10)
+trainingLabels = keras.utils.to_categorical(trainingLabels, num_classes=10)
+testingLabels = keras.utils.to_categorical(testingLabels, num_classes=10)
 
 print(trainingLabels.shape)
 
@@ -100,7 +101,7 @@ model.summary()
 model.compile(loss='mean_squared_error', metrics=['accuracy'], optimizer=keras.optimizers.Adam(lr=learningRate))
 
 # Train neural network
-training = model.fit(trainingImages, trainingLabels, epochs=epochs, verbose=2)
+training = model.fit(trainingImages, trainingLabels, epochs=epochs, verbose=2, batch_size=100)
 
 # Test neural network
 score = model.evaluate(testingImages, testingLabels, verbose=0)
@@ -109,10 +110,10 @@ print("Test accuracy:", score[1])
 
 prediction = model.predict(testingImages)
 prediction = np.argmax(prediction, axis=1)
-testingLabels, names = pd.factorize(testingLabels)
-c = confusion_matrix(testingLabels, prediction)
-print("Confusion matrix")
-print(c)
+# testingLabels, names = pd.factorize(testingLabels)
+# c = confusion_matrix(testingLabels, prediction)
+# print("Confusion matrix")
+# print(c)
 
 # Make plot
 plt.plot(score[1], '-')
