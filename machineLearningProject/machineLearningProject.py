@@ -1,18 +1,25 @@
-import json
+#import matplotlib.image as mpimg
+import glob
+import os
+
+import cv2
+import matplotlib.pyplot as plt
 import numpy as np
-import objectpath as op
-from skimage.io import imread
+import scipy.misc as sp
+import pandas as pd
 
-set1 = imread("set1.jpg")
-set2 = imread("set2.jpg")
-set3 = imread("set3.jpg")
-set4 = imread("set4.jpg")
+data_images = []
 
-print(set1)
+# Load in the images
+for filepath in os.listdir('images/allSetsSameSize'):
+    data_images.append(cv2.imread('images/allSetsSameSize/{0}'.format(filepath), 0))
 
-with open("handwritingTrainingData.txt") as datafile:
-    datafile = datafile.read()
-    data = json.loads(str(datafile))
+print(type(data_images[0]))
+print(len(data_images))
+print(data_images[0].shape)
 
-np_data = np.asarray(data)
-#print(np_data)
+data_array = np.zeros((len(data_images), 75*75))
+print(data_array.shape)
+for x in range(0, len(data_images)):
+    data_array[x,:] = data_images[x].flatten()
+print(data_array.shape)
