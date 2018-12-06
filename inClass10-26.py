@@ -38,6 +38,10 @@ outputs = y.shape[1]
 batchSize = 10
 epochs = 1000
 
+print(x.shape)
+print(x)
+print(y, y.shape[1])
+
 # Create neural network
 model = Sequential()
 model.add(Dense(units=300, init='normal', activation='relu', input_dim=inputs))
